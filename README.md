@@ -5,18 +5,14 @@ To provide the client (visitor) IP address for every request to the origin, Clou
 
 ## Nginx Configuration
 With a small configuration modification we can integrate replacing the real ip address of the visitor instead of getting CloudFlare's load balancers' ip addresses.
-
-Open "/etc/nginx/nginx.conf" file with your favorite text editor and just add the following lines to your nginx.conf inside http{....} block.
-
-```nginx
-include /etc/nginx/cloudflare;
 ```
+No need nginx additional cofiguration.
 
 The bash script may run manually or can be scheduled to refresh the ip list of CloudFlare automatically.
 ```sh
 #!/bin/bash
 
-CLOUDFLARE_FILE_PATH=/etc/nginx/cloudflare
+CLOUDFLARE_FILE_PATH=/etc/nginx/conf.d/cloudflare.conf
 
 echo "#Cloudflare" > $CLOUDFLARE_FILE_PATH;
 echo "" >> $CLOUDFLARE_FILE_PATH;
@@ -40,7 +36,7 @@ nginx -t && systemctl reload nginx
 ```
 
 ## Output
-Your "/etc/nginx/cloudflare" file may look like as below;
+Your "/etc/nginx/conf.d/cloudflare.conf" file may look like as below;
 
 ```nginx
 #Cloudflare ip addresses
